@@ -13,12 +13,19 @@ TARGET_COLUMN = "menopause_status"
 
 
 def _read_xpt(path):
+    """Read a NHANES .xpt file. Uses pyreadstat (robust for NHANES) if
+    available, else falls back to pandas. Some files (e.g. P_INS) have
+    variable labels with non-UTF8 characters like micro signs (µ), which
+    pyreadstat can choke on -- fall back to pandas with latin1 encoding
+    in that case."""
     try:
         import pyreadstat
         df, _ = pyreadstat.read_xport(path)
         return df
+    except UnicodeDecodeError:
+        return pd.read_sas(path, encoding="latin1")
     except ImportError:
-        return pd.read_sas(path)
+        return pd.read_sas(path, encoding="latin1")
 
 
 def load_data():
