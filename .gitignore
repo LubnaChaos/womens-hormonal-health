@@ -1,7 +1,26 @@
+# Python
 __pycache__/
 *.pyc
-.env
+*.pyo
 .venv/
-data/*.XPT
+venv/
+env/
+
+# Environment variables / API keys
+.env
+
+# Raw NHANES source files (large, downloadable via data/README.md — not committed)
+data/*.xpt
+
+# VS Code
+.vscode/
+
+# OS-generated files
 .DS_Store
-*.ipynb_checkpoints
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Logs
+*.log
